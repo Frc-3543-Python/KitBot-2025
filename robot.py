@@ -13,6 +13,8 @@ import phoenix5
 import wpilib.drive
 import Constants
 import keyboard
+# from wpilib.cameraserver import CameraServer
+from cscore import CameraServer
 # from RobotContainer import RobotContainer
 
 class MyRobot(commands2.TimedCommandRobot):
@@ -48,6 +50,12 @@ class MyRobot(commands2.TimedCommandRobot):
         self.servo = wpilib.Servo(Constants.SERVO_CHANNEL)
         self.listInputsX = []
         self.listInputsY = []
+        CameraServer.enableLogging()
+        self.camera = CameraServer.startAutomaticCapture()
+        self.camera.setResolution(640, 480)
+        self.camera.setFPS(30)
+        self.sink = CameraServer.getVideo()
+        
         # Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         # autonomous chooser on the dashboard.
         #self.container = RobotContainer()
@@ -184,6 +192,7 @@ class MyRobot(commands2.TimedCommandRobot):
             self.top.set(phoenix5.ControlMode.PercentOutput, -Constants.ROLLER_MOTOR_EJECT_SPEED * self.ry)
         else:
             self.top.set(phoenix5.ControlMode.PercentOutput, Constants.ROLLER_MOTOR_EJECT_SPEED * self.ry)
+        #time, self.input_img = self.sink.grabFrame()
         if self.joy.getRawButton(Constants.START):
             self.endCompetition()
     def testInit(self) -> None:
