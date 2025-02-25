@@ -13,8 +13,8 @@ import phoenix5
 import wpilib.drive
 import Constants
 import keyboard
-# from wpilib.cameraserver import CameraServer
 from cscore import CameraServer
+# from wpilib.cameraserver import CameraServer
 # from RobotContainer import RobotContainer
 
 class MyRobot(commands2.TimedCommandRobot):
@@ -51,9 +51,12 @@ class MyRobot(commands2.TimedCommandRobot):
         self.listInputsX = []
         self.listInputsY = []
         CameraServer.enableLogging()
-        self.camera = CameraServer.startAutomaticCapture()
-        self.camera.setResolution(640, 480)
-        self.camera.setFPS(30)
+        self.camera1 = CameraServer.startAutomaticCapture(0)
+        self.camera2 = CameraServer.startAutomaticCapture(1)
+        self.camera1.setResolution(640, 480)
+        self.camera2.setResolution(640, 480)
+        self.camera1.setFPS(30)
+        self.camera2.setFPS(30)
         self.sink = CameraServer.getVideo()
         
         # Instantiate our RobotContainer.  This will perform all our button bindings, and put our
